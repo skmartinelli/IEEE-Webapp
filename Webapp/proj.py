@@ -20,6 +20,17 @@ def render_ctof_result():
         except ValueError:
             return "Sorry: something went wrong."
 
+@app.route('/summary')
+def render_summary():
+    return render_template('summary.html')
+
+
+@app.route('/summary_result')
+def render_summary_result():
+    return render_template('summaryresult.html')
+
+
+
 def ctof(ctemp):
     return (ctemp*9/5)+32
 

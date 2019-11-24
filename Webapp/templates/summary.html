@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block title %} Summarize Text {% endblock %}
+{% block content %}
+
+<p>Enter a link to the text you would like summarized and then click "Submit" to summarize.</p>
+
+<form action="/summary_result">
+	Link:<br>
+	<input type="text" name="link" value="Example.com">
+	<input type="submit" value="Submit">
+</form>
+
+{% endblock %}
