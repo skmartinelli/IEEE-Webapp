@@ -11,8 +11,9 @@ def render_summary():
 @app.route('/', methods=['POST'])
 def render_summary_result():
     link = request.form['link']
+    slidervalue = request.form['myRange']
     #summary= getSummary(link)
-    return link
+    return link + slidervalue
     #ALEX !!! write the getSummary(String link) function and then this will return getSummary(link) instead of just link
     
 
