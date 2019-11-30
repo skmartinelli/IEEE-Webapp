@@ -1,5 +1,5 @@
 import os
-#import summary
+import summary
 from flask import Flask, url_for, render_template, request
 app = Flask(__name__)
 
@@ -12,7 +12,7 @@ def render_summary():
 def render_summary_result():
     link = request.form['link']
     slidervalue = request.form['myRange']
-    #summary= getSummary(link)
+    summary= getSummary(link, slidervalue)
     return link + slidervalue
     #ALEX !!! write the getSummary(String link) function and then this will return getSummary(link) instead of just link
     
