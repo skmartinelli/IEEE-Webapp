@@ -12,8 +12,8 @@ def render_summary():
 def render_summary_result():
     link = request.form['link']
     slidervalue = request.form['myRange']
-    summary= getSummary(link, slidervalue)
-    return link + slidervalue
+    summ = summary.getSummary(link, slidervalue)
+    return summ
     #ALEX !!! write the getSummary(String link) function and then this will return getSummary(link) instead of just link
     
 
