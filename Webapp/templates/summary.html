@@ -1,6 +1,8 @@
 {% extends "layout.html" %}
 {% block title %} Summarize Text {% endblock %}
 {% block content %}
+
+<div style = "background-image: url('https://cdn.inspirationhut.net/wp-content/uploads/2013/05/21.png'); background-size:100% 100%">
 <p>Enter a link to the text you would like summarized, what percent you would like to compress your summary, and then click "Submit" to summarize.</p>
 <p class="" >{{ summary }}</p>
 
@@ -15,11 +17,12 @@
 
 
 
-<div style="background-image: url('hotel-wallpaper.png');"> 
+<div style="background-image: url('https://cdn.inspirationhut.net/wp-content/uploads/2013/05/21.png'); background-size:100% 100%"> 
 <form method = "POST">
 	<p> Link: </p>
 	<input name="link" value="Example.com">
 	<br>
+	<p> Summarization Percentage: </p>
 	<input name="myRange" type="range" min ="1" max="100" value="50" class="slider"id="myRange">
 	<br>
 	<input type="submit" value="Submit">
