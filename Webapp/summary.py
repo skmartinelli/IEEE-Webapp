@@ -1,9 +1,9 @@
 import requests
 from bs4 import BeautifulSoup
 import re
-#from nltk.corpus import stopwords
-#from nltk.stem import PorterStemmer
-#from nltk.tokenize import word_tokenize, sent_tokenize
+from nltk.corpus import stopwords
+from nltk.stem import PorterStemmer
+from nltk.tokenize import word_tokenize, sent_tokenize
 import nltk
 nltk.download('punkt')
 
@@ -37,7 +37,7 @@ def scrapeText(link):
     url = link
     page = requests.get(url)
 
-    soup = BeautifulSoup(page.content, 'lxml')
+    soup = BeautifulSoup(page.content, 'html.parser')
 
     pars = soup.find_all('p')
 
