@@ -1,13 +1,15 @@
 import requests
 from bs4 import BeautifulSoup
 import re
-#from nltk.corpus import stopwords
-#from nltk.stem import PorterStemmer
-#from nltk.tokenize import word_tokenize, sent_tokenize
+from nltk.corpus import stopwords
+from nltk.stem import PorterStemmer
+from nltk.tokenize import word_tokenize, sent_tokenize
 import nltk
 nltk.download('punkt')
 
-def getSummary(link):#, slidervalue):
+import heapq
+
+def getSummary(link, sliderValue):#, slidervalue):
     
     rawText = scrapeText(link)
     
@@ -17,16 +19,16 @@ def getSummary(link):#, slidervalue):
     formattedText = re.sub('[^a-zA-Z]', ' ', text)
     formattedText = re.sub(r'\s+', ' ', formattedText)
     
-    freqs = getFreqs(formattedText)
-    
-    sents = nltk.sent_tokenize(text)
-    
+    freqs = getFreqs(text)
+    #print(freqs)
+    sents = nltk.sent_tokenize(rawText)
+    #print(len(sents))
     scores = scoreSentences(sents, freqs)
-    print(scores)
+    #print(len(scores))
     
-    threshold = getThreshold(scores)
+    #threshold = getThreshold(scores)
     
-    summary = summarize(sents, scores, threshold)
+    summary = summarize(sents, scores, sliderValue)
     
     return summary
     
@@ -64,7 +66,7 @@ def getFreqs(text):
             else:
                 freqs[word] = 1
         
-        return freqs
+    return freqs
         
 def scoreSentences(sents, freqs):
     sentVals = dict()
@@ -76,23 +78,30 @@ def scoreSentences(sents, freqs):
                     sentVals[sent[:15]] += freqs[word]
                 else:
                     sentVals[sent[:15]] = freqs[word]
-        #sentVals[sent[:15]] = (sentVals[sent[:15]]) // (len(nltk.word_tokenize(sent)))
+        sentVals[sent[:15]] = (sentVals[sent[:15]]) // (len(nltk.word_tokenize(sent)))
         
     return sentVals
 
-def getThreshold(sentVals):
-    valSum = 0
+#def getThreshold(sentVals):
+#    valSum = 0
     
-    for sent in sentVals:
-        valSum += sentVals[sent]
+ #   for sent in sentVals:
+ #       valSum += sentVals[sent]
         
-    return int(valSum/len(sentVals))
+  #  return int(valSum/len(sentVals))
 
-def summarize(sents, sentVals, threshold):
+def summarize(sents, sentVals, percent):
     summary = ''
     
+    sentCount = int(len(sents)*(percent/100))
+    
+    sentsInSum = heapq.nlargest(sentCount, sentVals, key=sentVals.get)
+    print(sentsInSum)
+    
     for sent in sents:
-        if sent[:15] in sentVals and sentVals[sent[:15]] > threshold:
+        if sent[:15] in sentsInSum:
             summary += "\n\u2022" + sent
             
     return summary
+
+#summ = getSummary("https://openstax.org/books/anatomy-and-physiology/pages/1-1-overview-of-anatomy-and-physiology", 30)
