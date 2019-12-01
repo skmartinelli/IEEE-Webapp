@@ -93,10 +93,11 @@ def scoreSentences(sents, freqs):
 def summarize(sents, sentVals, percent):
     summary = ''
     
-    sentCount = int(len(sents)*(percent/100))
+    perc = int(percent)
+    sentCount = int(len(sents)*(perc/100))
     
     sentsInSum = heapq.nlargest(sentCount, sentVals, key=sentVals.get)
-    print(sentsInSum)
+    #print(sentsInSum)
     
     for sent in sents:
         if sent[:15] in sentsInSum:
